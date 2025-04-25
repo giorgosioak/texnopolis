@@ -36,7 +36,7 @@ class MovieCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Icon(
-                  _getMovieTypeIcon(movie.genre),
+                  movie.genreIcon,
                   size: 18.0,
                   color: Colors.white,
                 ),
@@ -46,31 +46,6 @@ class MovieCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  IconData _getMovieTypeIcon(String genre) {
-    switch (genre.trim()) {
-      case 'Φαντασίας':
-      case 'Περιπέτεια Φαντασίας':
-        return Icons.auto_awesome;
-      case 'Περιπέτεια':
-      case 'Περιπέτεια Μυστηρίου':
-      case 'Κωμική Περιπέτεια':
-        return Icons.explore;
-      case 'Θρίλερ':
-        return Icons.bolt;
-      case 'Μουσική-Βιογραφική':
-      case 'Μουσικό Ντοκυμαντέρ':
-        return Icons.music_note;
-      case 'Κινούμενα Σχέδια':
-        return Icons.animation;
-      case 'Οικογενειακή':
-      case 'Παιδική Οικογενειακή':
-      case 'Παιδική/Οικογενειακή':
-        return Icons.family_restroom;
-      default:
-        return Icons.movie;
-    }
   }
 }
 
