@@ -224,7 +224,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         b.timeslots.first)); // sort chronologically by the first timeslot
 
     return Card(
-      elevation: 4.0,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),

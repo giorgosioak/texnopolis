@@ -5,7 +5,7 @@ import '../models/movie.dart';
 class CustomMovieCard extends StatelessWidget {
   final Movie movie;
 
-  const CustomMovieCard({Key? key, required this.movie}) : super(key: key);
+  const CustomMovieCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,8 @@ class CustomMovieCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
-      elevation: 5.0,
+      elevation: 0,
+      // elevation: 5.0,
       child: Row(
         children: [
           // Left side: Movie image with aspect ratio

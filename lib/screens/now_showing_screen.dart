@@ -14,7 +14,7 @@ class NowShowingScreen extends StatefulWidget {
 
 class _NowShowingScreenState extends State<NowShowingScreen> {
   // A boolean variable to track whether we are in grid or list view
-  bool isGridView = true;
+  bool isGridView = false;
 
   // Toggle between grid and list layout
   void _toggleLayout() {
