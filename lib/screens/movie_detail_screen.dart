@@ -170,84 +170,98 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 ),
                 const SizedBox(height: 16.0),
 
-                const Center(
-                  child: Text(
-                    'Προβολές',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0,
+                if (widget.movie.shows.isNotEmpty)
+                  const Center(
+                    child: Text(
+                      'Προβολές (7 ημερών)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                      ),
                     ),
                   ),
-                ),
 
-                const SizedBox(height: 8.0),
+                if (widget.movie.shows.isNotEmpty) const SizedBox(height: 8.0),
 
-                // Display screenings for the next 7 days
-                for (var date in next7Days)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Display the date heading (Day, Month Date)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0), // Add top padding for the date
-                        child: Text(
-                          DateFormat('EEEE d/M').format(date),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16.0),
-                        ),
-                      ),
+                if (widget.movie.shows.isNotEmpty)
+                  // Display screenings for the next 7 days
+                  for (var date in next7Days)
+                    if (widget.movie.showsPerDay(date).isNotEmpty)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Display the date heading (Day, Month Date)
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 16.0), // Add top padding for the date
+                            child: Text(
+                              DateFormat('EEEE d/M').format(date),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16.0),
+                            ),
+                          ),
 
-                      // Add a small space after the date
-                      const SizedBox(height: 8.0),
+                          // Add a small space after the date
+                          const SizedBox(height: 8.0),
 
-                      // For each screening on this date, display the screenings and timeslots
-                      for (var screening in widget.movie.showsPerDay(date))
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0), // Space between screenings
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(screening.title),
-
-                              // Add space between title and timeslots
-                              const SizedBox(height: 8.0),
-
-                              // Create a Row of timeslots (3 per row)
-                              Wrap(
-                                spacing: 8.0, // Space between the cards
-                                runSpacing: 8.0, // Space between rows
+                          // For each screening on this date, display the screenings and timeslots
+                          for (var screening in widget.movie.showsPerDay(date))
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0), // Space between screenings
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  for (var slot in screening.timeslots)
-                                    Container(
-                                      width: (MediaQuery.of(context).size.width - 48) / 3, // 3 items per row
-                                      child: Card(
-                                        elevation: 0,
-                                        color: Theme.of(context).colorScheme.primary,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Center(
-                                            child: Text(
-                                              DateFormat('h:mm a').format(slot),
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14.0,
-                                                color: Colors.white,
+                                  Text(screening.title),
+
+                                  // Add space between title and timeslots
+                                  const SizedBox(height: 8.0),
+
+                                  // Create a Row of timeslots (3 per row)
+                                  Wrap(
+                                    spacing: 8.0, // Space between the cards
+                                    runSpacing: 8.0, // Space between rows
+                                    children: [
+                                      for (var slot in screening.timeslots)
+                                        Container(
+                                          width: (MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  48) /
+                                              3, // 3 items per row
+                                          child: Card(
+                                            elevation: 0,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Center(
+                                                child: Text(
+                                                  DateFormat('h:mm a')
+                                                      .format(slot),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                    ],
-                  ),
+                            ),
+                        ],
+                      ),
               ],
             ),
           ),
