@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
 import 'screens/now_showing_screen.dart';
 import 'screens/coming_soon_screen.dart';
 import 'screens/events_screen.dart';
 import 'screens/profile_screen.dart';
 
 void main() {
+  Intl.defaultLocale = 'el_GR';
   runApp(const TexnopolisApp());
 }
 
@@ -14,6 +17,16 @@ class TexnopolisApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: const Locale('el', 'GR'),  // Set default locale to Greek
+      supportedLocales: const [
+        Locale('en', 'US'),  // English
+        Locale('el', 'GR'),  // Greek
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       title: 'Texnopolis Cinema',
       theme: ThemeData(
         fontFamily: 'Manrope',

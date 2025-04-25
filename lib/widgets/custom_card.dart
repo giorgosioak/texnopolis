@@ -64,7 +64,7 @@ class CustomMovieCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Showing today:",
+                          "Προβολές Σήμερα:",
                           style: Theme.of(context).textTheme.bodyMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
