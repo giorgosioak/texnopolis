@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../models/event.dart';
 
@@ -12,7 +13,7 @@ class EventCard extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Image.network(event.image),
+          CachedNetworkImage(imageUrl:event.image),
           ListTile(
             title: Text(event.title),
             subtitle: Text(event.description),

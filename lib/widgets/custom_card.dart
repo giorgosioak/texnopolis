@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/movie.dart';
@@ -25,23 +26,16 @@ class CustomMovieCard extends StatelessWidget {
               width: 100,  // Set the width here for the image
               child: AspectRatio(
                 aspectRatio: 1800 / 2400, // Keep the aspect ratio intact
-                child: ClipRRect( // Wrap the Image.network with ClipRRect
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(10), // Set the desired border radius
-                    child: Image.network(
-                      movie.image,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                (loadingProgress.expectedTotalBytes ?? 1)
-                                : null,
-                          ),
-                        );
-                      },
-                    ),
+                  child: CachedNetworkImage(
+                    imageUrl: movie.image,
+                    fit: BoxFit.cover,
+                    // placeholder: (context, url) => const Center(
+                    //   child: CircularProgressIndicator(),
+                    // ),
+                    // errorWidget: (context, url, error) => const Icon(Icons.error),
+                  ),
                 ),
               ),
             ),

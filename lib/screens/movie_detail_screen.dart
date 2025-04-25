@@ -4,6 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../models/movie.dart';
 import 'package:intl/intl.dart';
 
+import '../utils/time.dart';
+
 class MovieDetailScreen extends StatefulWidget {
   final Movie movie;
 
@@ -16,6 +18,7 @@ class MovieDetailScreen extends StatefulWidget {
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isExpanded = false;
   final int _maxLength = 200;
+  final next7Days = Time.getNext7Days();
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +38,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             children: [
               // 🎬 Movie title
               Center(
-                  child: Text(
+                child: Text(
                   widget.movie.title,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0,
-                    ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                      ),
                 ),
               ),
               const SizedBox(height: 8.0),
@@ -83,8 +86,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               RichText(
                 text: TextSpan(
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.black87,
-                  ),
+                        color: Colors.black87,
+                      ),
                   children: <TextSpan>[
                     TextSpan(
                       text: _isExpanded
@@ -139,11 +142,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-
-
                     // Trailer URL Button with Icon and Text
                     TextButton.icon(
-                      icon: const Icon(Icons.ondemand_video_rounded), // Trailer icon
+                      icon: const Icon(
+                          Icons.ondemand_video_rounded), // Trailer icon
                       label: const Text('Trailer'),
                       onPressed: () {
                         launchUrl(Uri.parse(widget.movie.trailer));
@@ -154,10 +156,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
                     // Ticket URL Button with Icon and Text
                     TextButton.icon(
-                      icon: const Icon(Icons.local_activity_rounded), // Ticket icon
+                      icon: const Icon(
+                          Icons.local_activity_rounded), // Ticket icon
                       label: const Text('Tickets'),
                       onPressed: () {
-                        launchUrl(Uri.parse('https://tickets.texnopolis.net/#/spectacle/${widget.movie.spectacleId}'));
+                        launchUrl(Uri.parse(
+                            'https://tickets.texnopolis.net/#/spectacle/${widget.movie.spectacleId}'));
                       },
                     ),
                   ],
@@ -165,20 +169,40 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               ),
               const SizedBox(height: 16.0),
 
-              // ⏰ Showtimes grouped by room
-              if (groupedShows.isNotEmpty) ...[
-                const Text(
-                  'Showtimes',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
+              const Text(
+                'Προβολές',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
                 ),
-                const SizedBox(height: 8.0),
-                for (var entry in groupedShows.entries)
-                  _buildShowtimeGroupCard(context, entry.key, entry.value),
-                const SizedBox(height: 16.0),
-              ],
+              ),
+
+              const SizedBox(height: 8.0),
+
+              // Display screenings for the next 7 days
+              for (var date in next7Days)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Display the date heading (Day, Month Date)
+                    Text(
+                      DateFormat('EEE, MMM d').format(date),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16.0),
+                    ),
+
+                    // For each screening on this date, display the screenings and timeslots
+                    for (var screening in widget.movie.showsPerDay(date))
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(screening.title),
+                          for (var slot in screening.timeslots)
+                            Text(DateFormat('h:mm a').format(slot)),
+                        ],
+                      ),
+                  ],
+                ),
             ],
           ),
         ),
@@ -188,7 +212,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
   Widget _buildMovieDetail(BuildContext context, String title, String content) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0), // Slightly more bottom padding
+      padding:
+          const EdgeInsets.only(bottom: 12.0), // Slightly more bottom padding
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start, // Align text to the top
         children: [
@@ -197,9 +222,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             child: Text(
               '$title:',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary, // Use a theme color
-              ),
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary, // Use a theme color
+                  ),
             ),
           ),
           const SizedBox(width: 8.0),
@@ -287,19 +314,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       ),
     );
   }
-  // String get _shortenedDescription {
-  //   if (widget.movie.movieContent.length <= _maxLength) {
-  //     return widget.movie.movieContent;
-  //   } else {
-  //     final shortened = widget.movie.movieContent.substring(0, _maxLength);
-  //     final lastSentenceEnd = shortened.lastIndexOf(RegExp(r'[.!;?]'));
-  //     if (lastSentenceEnd > 0 && lastSentenceEnd < shortened.length - 10) {
-  //       return '${widget.movie.movieContent.substring(0, lastSentenceEnd + 1)} ';
-  //     } else {
-  //       return '$shortened... ';
-  //     }
-  //   }
-  // }
 
   String get _shortenedDescription {
     if (widget.movie.movieContent.length <= _maxLength) {
@@ -307,6 +321,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     } else {
       return '${widget.movie.movieContent.substring(0, _maxLength)}... ';
     }
+  }
+
+  String _formatGreekDate(DateTime date) {
+    final formatter = DateFormat('EEEE d MMMM', 'el_GR');
+    return toBeginningOfSentenceCase(formatter.format(date))!;
   }
 
   String _formatShowtime(DateTime timeslot) {

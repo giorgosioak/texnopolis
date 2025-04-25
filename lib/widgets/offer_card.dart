@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../models/offer.dart';
 
@@ -12,7 +13,7 @@ class OfferCard extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Image.network(offer.image),
+          CachedNetworkImage(imageUrl: offer.image),
           ListTile(
             title: Text(offer.title),
             subtitle: Text(offer.description),

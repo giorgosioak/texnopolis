@@ -16,8 +16,9 @@ class TexnopolisApp extends StatelessWidget {
     return MaterialApp(
       title: 'Texnopolis Cinema',
       theme: ThemeData(
+        fontFamily: 'Manrope',
         useMaterial3: true,
-        colorSchemeSeed: Colors.deepPurple,
+        colorSchemeSeed: const Color(0xFF62BB46),
       ),
       home: const HomeScreen(),
     );
