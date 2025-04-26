@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class Movie {
   final String id;
@@ -34,13 +35,14 @@ class Movie {
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
+    var unescape = HtmlUnescape();
     return Movie(
       id: json['id'].toString(),
-      title: json['title'] ?? '',
+      title: unescape.convert(json['title'] ?? ''),
       image: json['image'] ?? '',
       imageFull: json['image_full'] ?? '',
       kidsOk: json['kids_ok'] ?? false,
-      movieContent: json['movie_content'].replaceAll(RegExp(r'<[^>]*>'), '') ?? '',
+      movieContent: unescape.convert(json['movie_content'] ?? '').replaceAll(RegExp(r'<[^>]*>'), ''),
       trailer: json['trailer'] ?? '',
       genre: json['genre'] ?? '',
       director: json['director'] ?? '',

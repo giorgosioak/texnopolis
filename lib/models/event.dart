@@ -1,3 +1,5 @@
+import 'package:html_unescape/html_unescape.dart';
+
 class Event {
   final String id;
   final String title;
@@ -12,11 +14,12 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
+    var unescape = HtmlUnescape();
     return Event(
       id: json['id'].toString() ?? '',
-      title: json['title'] ?? '',
+      title: unescape.convert(json['title'] ?? ''),
       image: json['image'] ?? '',
-      description: json['description'] ?? '',
+      description: unescape.convert(json['description'] ?? ''),
     );
   }
 }

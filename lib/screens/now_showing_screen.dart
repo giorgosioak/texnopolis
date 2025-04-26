@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:texnopolis/widgets/coming_soon_list_card.dart';
 import '../models/movie.dart';
 import '../services/api_service.dart';
-import '../widgets/custom_card.dart';
+import '../widgets/now_showing_list_card.dart';
 import '../widgets/movie_card.dart'; // Make sure this is defined properly for both layouts
 import 'movie_detail_screen.dart';
 
@@ -98,7 +99,7 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
               ),
             );
           },
-          child: CustomMovieCard(movie: movie),  // Using the new custom card
+          child: NowShowingListCard(movie: movie),  // Using the new custom card
         );
       },
     );

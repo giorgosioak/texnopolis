@@ -69,7 +69,7 @@ class ComingSoonListCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ]),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 24.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

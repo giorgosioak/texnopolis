@@ -72,7 +72,7 @@ class NowShowingListCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ]),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 16.0),
                   if (movie.showsForToday.isNotEmpty)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
