@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/movie.dart';
 
-class CustomMovieCard extends StatelessWidget {
+class NowShowingListCard extends StatelessWidget {
   final Movie movie;
 
-  const CustomMovieCard({super.key, required this.movie});
+  const NowShowingListCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +53,25 @@ class CustomMovieCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4.0),
-                  Text(
-                    movie.genre,
-                    style: Theme.of(context).textTheme.titleSmall,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  // Text(
+                  //   movie.genre,
+                  //   style: Theme.of(context).textTheme.titleSmall,
+                  //   overflow: TextOverflow.ellipsis,
+                  // ),
+                  Row(children: [
+                    // Genre Icon
+                    Icon(
+                      // Icons.movie_creation, // Genre icon (can be customized based on your needs)
+                      movie.genreIcon,
+                      size: 16,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      movie.genre,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ]),
                   const SizedBox(height: 8.0),
                   if (movie.showsForToday.isNotEmpty)
                     Column(

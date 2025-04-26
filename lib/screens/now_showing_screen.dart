@@ -27,7 +27,7 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Now Showing'),
+        title: const Text('Προβάλλονται τώρα'),
         actions: [
           IconButton(
             icon: Icon(isGridView ? Icons.view_list_rounded : Icons.grid_view_rounded),

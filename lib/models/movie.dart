@@ -13,6 +13,7 @@ class Movie {
   final String actors;
   final int length;
   final String spectacleId;
+  final String minStartDate;
   final List<Show> shows;
 
   Movie({
@@ -28,6 +29,7 @@ class Movie {
     required this.actors,
     required this.length,
     required this.spectacleId,
+    required this.minStartDate,
     required this.shows,
   });
 
@@ -46,6 +48,7 @@ class Movie {
       actors: json['actors'],
       length: int.tryParse(json['length']?.toString() ?? '0') ?? 0,
       spectacleId: json['spectacle_id'] ?? '',
+      minStartDate: json['minStartDate'] ?? '',
       shows: (json['shows'] != null && json['shows'] is List)
           ? List<Show>.from((json['shows'] as List).map((showJson) => Show.fromJson(showJson)))
           : [], // Handle null or invalid shows
