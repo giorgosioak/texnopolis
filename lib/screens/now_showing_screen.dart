@@ -1,9 +1,9 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:texnopolis/widgets/coming_soon_list_card.dart';
 import '../models/movie.dart';
 import '../services/api_service.dart';
 import '../widgets/now_showing_list_card.dart';
-import '../widgets/movie_card.dart'; // Make sure this is defined properly for both layouts
+import '../widgets/movie_card.dart';
 import 'movie_detail_screen.dart';
 
 class NowShowingScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Προβάλλονται τώρα'),
+        title: Text(AppLocalizations.of(context)!.nowShowing),centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(isGridView ? Icons.view_list_rounded : Icons.grid_view_rounded),
@@ -45,6 +45,7 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No movies available.'));
+            // TODO: return const Center(child: Text(AppLocalizations.of(context)!.no));
           }
           final movies = snapshot.data!;
           return isGridView

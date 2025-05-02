@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../models/movie.dart';
 
 class ComingSoonListCard extends StatelessWidget {
@@ -61,7 +61,7 @@ class ComingSoonListCard extends StatelessWidget {
                       // Icons.movie_creation, // Genre icon (can be customized based on your needs)
                       movie.genreIcon,
                       size: 16,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -74,7 +74,7 @@ class ComingSoonListCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Από τις: ${movie.minStartDate}",
+                        "${AppLocalizations.of(context)!.fromDate} ${movie.minStartDate}", // "Από τις: ${movie.minStartDate}",
                         style: Theme.of(context).textTheme.bodyMedium,
                         overflow: TextOverflow.ellipsis,
                       ),

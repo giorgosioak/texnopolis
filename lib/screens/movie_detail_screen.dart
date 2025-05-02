@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -56,7 +57,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       // Icons.movie_creation, // Genre icon (can be customized based on your needs)
                       widget.movie.genreIcon,
                       size: 20,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -71,11 +72,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     Icon(
                       Icons.access_time, // Clock icon for time
                       size: 20,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${widget.movie.length} min', // Length of movie
+                      '${widget.movie.length} min', // Length of movie // TODO
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -87,7 +88,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 RichText(
                   text: TextSpan(
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.black87,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                     children: <TextSpan>[
                       TextSpan(
@@ -98,7 +99,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       if (widget.movie.movieContent.length > _maxLength &&
                           !_isExpanded)
                         TextSpan(
-                          text: 'Read More',
+                          text: ' ${AppLocalizations.of(context)!.readMore}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -113,7 +114,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       if (widget.movie.movieContent.length > _maxLength &&
                           _isExpanded)
                         TextSpan(
-                          text: ' Read Less',
+                          text: ' ${AppLocalizations.of(context)!.readLess}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -129,14 +130,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 8.0),
+                const SizedBox(height: 16.0),
 
                 // 🎬 Director, Cast, Length
                 if (widget.movie.director.isNotEmpty)
-                  _buildMovieDetail(context, 'Director', widget.movie.director),
+                  _buildMovieDetail(context, AppLocalizations.of(context)!.director, widget.movie.director),
 
                 if (widget.movie.actors.isNotEmpty)
-                  _buildMovieDetail(context, 'Cast', widget.movie.actors),
+                  _buildMovieDetail(context, AppLocalizations.of(context)!.cast, widget.movie.actors),
 
                 // Group for the ticket and trailer URLs
                 Center(
@@ -147,7 +148,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       TextButton.icon(
                         icon: const Icon(
                             Icons.ondemand_video_rounded), // Trailer icon
-                        label: const Text('Trailer'),
+                        label: Text(AppLocalizations.of(context)!.trailer),
                         onPressed: () {
                           launchUrl(Uri.parse(widget.movie.trailer));
                         },
@@ -159,7 +160,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       TextButton.icon(
                         icon: const Icon(
                             Icons.local_activity_rounded), // Ticket icon
-                        label: const Text('Tickets'),
+                        label: Text(AppLocalizations.of(context)!.tickets),
                         onPressed: () {
                           launchUrl(Uri.parse(
                               'https://tickets.texnopolis.net/#/spectacle/${widget.movie.spectacleId}'));
@@ -171,10 +172,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 const SizedBox(height: 16.0),
 
                 if (widget.movie.shows.isNotEmpty)
-                  const Center(
+                  Center(
                     child: Text(
-                      'Προβολές (7 ημερών)',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.sevenDayScreenings,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24.0,
                       ),
@@ -223,7 +224,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                     runSpacing: 8.0, // Space between rows
                                     children: [
                                       for (var slot in screening.timeslots)
-                                        Container(
+                                        SizedBox(
                                           width: (MediaQuery.of(context)
                                                       .size
                                                       .width -
@@ -245,10 +246,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                 child: Text(
                                                   DateFormat('h:mm a')
                                                       .format(slot),
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 14.0,
-                                                    color: Colors.white,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onPrimary,
                                                   ),
                                                 ),
                                               ),
@@ -300,95 +303,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     );
   }
 
-  Widget _buildShowtimeGroupCard(
-    BuildContext context,
-    String roomName,
-    List<Show> shows,
-  ) {
-    shows.sort((a, b) => a.timeslots.first.compareTo(
-        b.timeslots.first)); // sort chronologically by the first timeslot
-
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      margin: const EdgeInsets.only(bottom: 12.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '$roomName',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17.0,
-                  ),
-            ),
-            const SizedBox(height: 12.0),
-
-            // Showtimes
-            for (var show in shows) ...[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Loop through each timeslot
-                  for (var timeslot in show.timeslots) ...[
-                    Row(
-                      children: [
-                        const Icon(Icons.access_time,
-                            size: 16.0, color: Colors.grey),
-                        const SizedBox(width: 6.0),
-                        Text(
-                          _formatShowtime(timeslot),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey[800],
-                                  ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6.0),
-                  ],
-                ],
-              ),
-            ],
-
-            const SizedBox(height: 8.0),
-
-            // Shared features (assumes same flags for all timeslots in the room)
-            Text(
-              '3D: ${shows.first.is3D ? 'Yes' : 'No'}',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Text(
-              'COVID Free: ${shows.first.isCovidFree ? 'Yes' : 'No'}',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   String get _shortenedDescription {
     if (widget.movie.movieContent.length <= _maxLength) {
       return widget.movie.movieContent;
     } else {
-      return '${widget.movie.movieContent.substring(0, _maxLength)}... ';
+      return '${widget.movie.movieContent.substring(0, _maxLength)}...';
     }
   }
 
-  String _formatGreekDate(DateTime date) {
-    final formatter = DateFormat('EEEE d MMMM', 'el_GR');
-    return toBeginningOfSentenceCase(formatter.format(date))!;
-  }
 
-  String _formatShowtime(DateTime timeslot) {
-    final formattedDate = DateFormat('EEE, MMM d').format(timeslot);
-    final formattedTime = DateFormat.jm().format(timeslot);
-    return '$formattedDate – $formattedTime';
-  }
 }

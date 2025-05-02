@@ -1,15 +1,16 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../models/event.dart';
 import '../services/api_service.dart';
 import '../widgets/event_card.dart';
 
 class EventsScreen extends StatelessWidget {
-  const EventsScreen({Key? key}) : super(key: key);
+  const EventsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Events')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.events),centerTitle: true),
       body: FutureBuilder<List<Event>>(
         future: ApiService.fetchEvents(),
         builder: (context, snapshot) {
@@ -18,7 +19,7 @@ class EventsScreen extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No events available.'));
+            return const Center(child: Text('No events available.'));  // TODO
           }
           final events = snapshot.data!;
           return ListView.builder(

@@ -16,7 +16,7 @@ class Event {
   factory Event.fromJson(Map<String, dynamic> json) {
     var unescape = HtmlUnescape();
     return Event(
-      id: json['id'].toString() ?? '',
+      id: json['id'].toString(),
       title: unescape.convert(json['title'] ?? ''),
       image: json['image'] ?? '',
       description: unescape.convert(json['description'] ?? ''),

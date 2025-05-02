@@ -148,7 +148,7 @@ class Show {
             : false,
       );
     } catch (e) {
-      print('Error parsing show: $e');
+      // print('Error parsing show: $e');
       return Show(
         id: '0',
         title: 'Error',

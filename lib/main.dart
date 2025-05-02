@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/locale_provider.dart';
+import 'providers/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'screens/now_showing_screen.dart';
 import 'screens/coming_soon_screen.dart';
@@ -8,38 +13,58 @@ import 'screens/profile_screen.dart';
 
 void main() {
   Intl.defaultLocale = 'el_GR';
-  runApp(const TexnopolisApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const TexnopolisApp(),
+    ),
+  );
 }
 
 class TexnopolisApp extends StatelessWidget {
-  const TexnopolisApp({Key? key}) : super(key: key);
+  const TexnopolisApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
+
     return MaterialApp(
-      locale: const Locale('el', 'GR'),  // Set default locale to Greek
+      locale: localeProvider.locale, // locale: const Locale('el'),
       supportedLocales: const [
-        Locale('en', 'US'),  // English
-        Locale('el', 'GR'),  // Greek
+        Locale('en'),  // English
+        Locale('el'),  // Greek
       ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        AppLocalizations.delegate,
       ],
       title: 'Texnopolis Cinema',
       theme: ThemeData(
         fontFamily: 'Manrope',
         useMaterial3: true,
         colorSchemeSeed: const Color(0xFF62BB46),
+        brightness: Brightness.light,
       ),
+      darkTheme: ThemeData(
+        fontFamily: 'Manrope',
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xFF62BB46),
+        brightness: Brightness.dark,
+      ),
+      themeMode: themeProvider.themeMode,
       home: const HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -49,10 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _screens = <Widget>[
-    NowShowingScreen(),
-    ComingSoonScreen(),
-    EventsScreen(),
-    ProfileScreen(),
+    const NowShowingScreen(),
+    const ComingSoonScreen(),
+    const EventsScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -68,22 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onItemTapped,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.movie),
-            label: 'Now Showing',
+            icon: const Icon(Icons.movie),
+            label: AppLocalizations.of(context)!.navNowShowing,
           ),
           NavigationDestination(
-            icon: Icon(Icons.upcoming),
-            label: 'Coming Soon',
+            icon: const Icon(Icons.upcoming),
+            label: AppLocalizations.of(context)!.navComingSoon,
           ),
           NavigationDestination(
-            icon: Icon(Icons.event),
-            label: 'Events',
+            icon: const Icon(Icons.event),
+            label: AppLocalizations.of(context)!.navEvents,
           ),
           NavigationDestination(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person),
+            label: AppLocalizations.of(context)!.navMember,
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/movie.dart';
@@ -64,7 +65,7 @@ class NowShowingListCard extends StatelessWidget {
                       // Icons.movie_creation, // Genre icon (can be customized based on your needs)
                       movie.genreIcon,
                       size: 16,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -78,7 +79,7 @@ class NowShowingListCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Προβολές Σήμερα:",
+                          AppLocalizations.of(context)!.todayScreenings,
                           style: Theme.of(context).textTheme.bodyMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -100,7 +101,7 @@ class NowShowingListCard extends StatelessWidget {
                     )
                   else
                     Text(
-                      "No shows today.",
+                      AppLocalizations.of(context)!.noShowsToday, // "No shows today.",
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                 ],

@@ -19,6 +19,8 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_svg: ^2.1.0
   html_unescape: ^2.0.0
+  shared_preferences: ^2.5.3
+  provider: ^6.1.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.3
@@ -26,6 +28,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  generate: true # Enables localization
 
   assets:
     - assets/logo.svg
