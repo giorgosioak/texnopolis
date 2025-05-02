@@ -204,8 +204,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _showCinemaInfo(BuildContext context) {
-    final primaryColor = Theme.of(context).colorScheme.primary;
-
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

@@ -4,7 +4,6 @@ import 'providers/locale_provider.dart';
 import 'providers/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'screens/now_showing_screen.dart';
 import 'screens/coming_soon_screen.dart';
