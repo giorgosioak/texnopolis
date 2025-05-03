@@ -110,7 +110,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                       ),
                       children: [
                         TextSpan(
-                          text: '${AppLocalizations.of(context)!.eventDatailsSummary}: ',
+                          text: '${AppLocalizations.of(context)!.eventDetailsSummary}: ',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.secondary,
