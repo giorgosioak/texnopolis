@@ -50,7 +50,7 @@ class EventCardList extends StatelessWidget {
                   ),
                   const SizedBox(height: 4.0),
                   Text(
-                    DateFormat('EEEE, d MMM yyyy – hh:mm a').format(event.eventDate as DateTime),
+                    DateFormat('EEEE, d MMM yyyy').format(event.eventDate as DateTime),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                   ),
                   if (event.theaterName != null && event.theaterName!.trim().isNotEmpty) ...[

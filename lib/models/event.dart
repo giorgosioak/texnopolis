@@ -33,8 +33,14 @@ class Event {
     DateTime? eventDate;
     if (eventDateString != null && eventDateString.isNotEmpty) {
       try {
-        // Try parsing the date, assuming it is in the "dd/MM" format
-        eventDate = DateFormat('dd/MM').parse(eventDateString);
+        // Get current year
+        int currentYear = DateTime.now().year;
+
+        // Ensure the event date string has both day and month, and append the current year
+        String eventDateWithYear = '$eventDateString/$currentYear';
+
+        // Parse the date, using the current year
+        eventDate = DateFormat('dd/MM/yyyy').parse(eventDateWithYear);
       } catch (e) {
         // If parsing fails, print an error or handle it
         if (kDebugMode) {
