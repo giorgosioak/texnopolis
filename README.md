@@ -19,13 +19,13 @@ This project is a complete visual and UX overhaul of the original Texnopolis cin
 
 ## 🖼️ Screenshots
 
-| Now Showing | Coming Soon | Movie Details |
-|-------------|--------------|--------------|
-| ![Now Showing](screenshots\now_showing.png) | ![Coming Soon](screenshots/coming_soon.png) | ![Movie Details](screenshots/movie_details.png) |
+| Now Showing                                 | Coming Soon | Movie Details |
+|---------------------------------------------|--------------|--------------|
+| ![Now Showing](screenshots/now_showing.png) | ![Coming Soon](screenshots/coming_soon.png) | ![Movie Details](screenshots/movie_details.png) |
 
-| Events | Event Details | Settings |
-|-------------|--------------|--------------|
-| ![Events](screenshots\events.png) | ![Event Details](screenshots/event_details.png) | ![Settings](screenshots/settings.png) |
+| Events                            | Event Details | Settings |
+|-----------------------------------|--------------|--------------|
+| ![Events](screenshots/events.png) | ![Event Details](screenshots/event_details.png) | ![Settings](screenshots/settings.png) |
 
 
 
