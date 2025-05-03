@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../providers/locale_provider.dart';
 import '../providers/theme_provider.dart';
 
@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settings),
         // title: const Text('My Profile'),
         centerTitle: true,
       ),
@@ -48,19 +48,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             _buildLoyaltyCard(context),
             const SizedBox(height: 30),
-            _buildSettingButton(Icons.person, 'Edit Profile', () {
+            _buildSettingButton(Icons.person, AppLocalizations.of(context)!.pageProfileEditProfile, () {
               _showEditProfile(context);
             }),
-            _buildSettingButton(Icons.movie, 'Cinema Info', () {
+            _buildSettingButton(Icons.movie, AppLocalizations.of(context)!.pageProfileCinemaInfo, () {
               _showCinemaInfo(context);
             }),
-            _buildSettingButton(Icons.language, 'Language', () {
+            _buildSettingButton(Icons.language, AppLocalizations.of(context)!.pageProfileLanguage, () {
               _showLanguageDialog(context);
             }),
-            _buildSettingButton(Icons.dark_mode, 'Theme', () {
+            _buildSettingButton(Icons.dark_mode, AppLocalizations.of(context)!.pageProfileTheme, () {
               _showThemeDialog(context);
             }),
-            _buildSettingButton(Icons.info_outline, 'About App', () {
+            _buildSettingButton(Icons.info_outline, AppLocalizations.of(context)!.pageProfileAboutApp, () {
               _showAboutApp(context);
             }),
           ],

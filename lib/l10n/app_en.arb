@@ -25,5 +25,10 @@
   "cast": "Cast",
   "sevenDayScreenings": "7-Day Screenings",
   "noShowsToday": "No shows today.",
-  "suitableForKids": "Suitable for Kids"
+  "suitableForKids": "Suitable for Kids",
+  "pageProfileEditProfile": "Edit Profile",
+  "pageProfileCinemaInfo": "Cinema Info",
+  "pageProfileLanguage": "Language",
+  "pageProfileTheme": "Theme",
+  "pageProfileAboutApp": "About App"
 }

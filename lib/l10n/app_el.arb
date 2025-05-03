@@ -25,5 +25,10 @@
   "cast": "Ηθοποιοί",
   "sevenDayScreenings": "Προβολές (7 ημερών)",
   "noShowsToday": "Δεν υπάρχουν προβολές σήμερα.",
-  "suitableForKids": "Κατάλληλο για Παιδιά"
+  "suitableForKids": "Κατάλληλο για Παιδιά",
+  "pageProfileEditProfile": "Επεξεργασία στοιχείων",
+  "pageProfileCinemaInfo": "Πληροφορίες για το Σινεμά",
+  "pageProfileLanguage": "Επιλογή γλώσσας",
+  "pageProfileTheme": "Επιλογή θέματος",
+  "pageProfileAboutApp": "Περι εφαρμογής"
 }
