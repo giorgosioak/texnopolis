@@ -1,5 +1,6 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:texnopolis/screens/event_detail_sceen.dart';
 import 'package:texnopolis/widgets/event_card_list.dart';
 import '../models/event.dart';
 import '../services/api_service.dart';
@@ -70,12 +71,12 @@ class EventsScreen extends StatefulWidget {
         final event = events[index];
         return GestureDetector(
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => MovieDetailScreen(movie: event),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EventDetailScreen(event: event),
+              ),
+            );
           },
           child: EventCard(event: event), // Grid card widget
         );
@@ -92,12 +93,12 @@ class EventsScreen extends StatefulWidget {
         final event = events[index];
         return GestureDetector(
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => MovieDetailScreen(movie: movie),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EventDetailScreen(event: event),
+              ),
+            );
           },
           child: EventCardList(event: event),  // Using the new custom card
         );

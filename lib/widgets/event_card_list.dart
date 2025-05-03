@@ -61,19 +61,30 @@ class EventCardList extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
-                  const SizedBox(height: 8.0),
-                  if (event.kidsOk)
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(8),
+                  if (event.summary != null && event.summary!.trim().isNotEmpty) ...[
+                    const SizedBox(height: 8.0),
+                    Text(
+                      event.summary!,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
                       ),
-                      child: Text(
-                        AppLocalizations.of(context)!.suitableForKids,
-                        style: const TextStyle(color: Colors.green, fontSize: 12),
-                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
+                    const SizedBox(height: 4.0),
+                    if (event.kidsOk)
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.green.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.suitableForKids,
+                          style: const TextStyle(color: Colors.green, fontSize: 12),
+                        ),
+                      ),
+                  ],
                 ],
               ),
             ),

@@ -59,7 +59,7 @@ class Event {
           : null,
       eventDate: eventDate,
       summary: unescape.convert(json['summary'] ?? ''),
-      eventContent: json['event_content'],
+      eventContent: unescape.convert(json['event_content'] ?? '').replaceAll(RegExp(r'<[^>]*>'), ''),
       kidsOk: json['kids_ok'] ?? false,
     );
   }
