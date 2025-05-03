@@ -24,5 +24,6 @@
   "director": "Director",
   "cast": "Cast",
   "sevenDayScreenings": "7-Day Screenings",
-  "noShowsToday": "No shows today."
+  "noShowsToday": "No shows today.",
+  "suitableForKids": "Suitable for Kids"
 }
