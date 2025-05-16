@@ -34,8 +34,8 @@ This project is a complete visual and UX overhaul of the original Texnopolis cin
 Clone and run the app locally:
 
 ```bash
-git clone https://github.com/yourusername/texnopolis-cinema-app.git
-cd texnopolis-cinema-app
+git clone https://github.com/giorgosioak/texnopolis.git
+cd texnopolis
 flutter pub get
 flutter run
 ```
